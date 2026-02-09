@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Towers.Data;
 using Towers.Modules.Core;
+using UnityEditor.Timeline;
 using UnityEngine;
 
 namespace Towers.Core
@@ -52,6 +53,16 @@ namespace Towers.Core
             socket.module = instance;
             instance.Install(_context);
             _modules.Add(instance);
+        }
+
+        public void OnDrawGizmos()
+        {
+            if (!_context.CurrentTarget) return;
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(transform.position, _context.CurrentTarget.transform.position);
+
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(transform.position, _context?.Stats.Get("Range") ?? 5f);
         }
     }
 }
