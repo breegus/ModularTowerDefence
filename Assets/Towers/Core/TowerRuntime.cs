@@ -20,7 +20,7 @@ namespace Towers.Core
             {
                 TargetPos = transform,
                 //Enemies = FindObjectOfType<EnemyTracker>(),
-                //Stats = new StatCollection();
+                Stats = new TowerStats(),
                 Events = new TowerEvents()
             };
 

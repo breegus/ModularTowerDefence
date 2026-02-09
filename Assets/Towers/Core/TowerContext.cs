@@ -6,7 +6,7 @@ namespace Towers.Core
     {
         public Transform TargetPos;
         //public EnemyTracker Enemies;
-        //public StatCollection Stats;
+        public TowerStats Stats;
         public TowerEvents Events;
         public Enemy CurrentTarget;
     }
