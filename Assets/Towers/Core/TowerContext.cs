@@ -1,3 +1,4 @@
+using Enemies;
 using UnityEngine;
 
 namespace Towers.Core
@@ -5,7 +6,7 @@ namespace Towers.Core
     public class TowerContext
     {
         public Transform TargetPos;
-        //public EnemyTracker Enemies;
+        public EnemyTracker Enemies;
         public TowerStats Stats;
         public TowerEvents Events;
         public Enemy CurrentTarget;
