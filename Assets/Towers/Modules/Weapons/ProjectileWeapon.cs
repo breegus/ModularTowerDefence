@@ -1,3 +1,4 @@
+using Enemies;
 using Towers.Core;
 using Towers.Modules.Core;
 using UnityEngine;
@@ -16,6 +17,8 @@ namespace Towers.Modules.Weapons
         {
             base.Install(context);
             Context.Events.OnTick += TryFire;
+            Context.Stats.SetBase("FireRate", fireRate);
+            Context.Stats.SetBase("Damage", damage);
         }
 
         public override void Uninstall(TowerContext context)
@@ -29,19 +32,16 @@ namespace Towers.Modules.Weapons
             _fireRateTimer -= Time.deltaTime;
             if (_fireRateTimer <= 0f) return;
 
-            if (Context.CurrentTarget == null) return;  // No target set
+            if (!Context.CurrentTarget) return;  // No target set
             
             Fire(Context.CurrentTarget);
-            _fireRateTimer = fireRate;
 
-            //_fireRateTimer = Context.Stats.Get("FireRateMult") != null
-            //    ? fireRate * Context.Stats.Get("FireRateMult")
-            //    : fireRate;
+            _fireRateTimer = Context.Stats.Get("FireRate");
         }
 
         void Fire(Enemy target)
         {
-            //target.TakeDamage(damage);
+            target.TakeDamage(Context.Stats.Get("Damage"));
             Context.Events.Hit(target);
         }
     }

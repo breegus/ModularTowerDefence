@@ -7,17 +7,17 @@ namespace Towers.Modules.Modifiers
     [CreateAssetMenu(menuName = "Towers/Modules/Modifiers/FireRateModifier")]
     public class FireRateModifier : ModifierModule
     {
-        public float fireRateMultiplier = 1.5f;
+        public float fireRate = 1.5f;
 
         public override void Install(TowerContext context)
         {
             base.Install(context);
-            //Context.Stats.AddMultiplier("FireRateMult", fireRateMultiplier);
+            Context.Stats.AddModifer("FireRate", v => v * fireRate);
         }
 
         public override void Uninstall(TowerContext context)
         {
-            //Context.Stats.RemoveMultiplier("FireRateMult", fireRateMultiplier);
+            Context.Stats.RemoveModifier("FireRate", v => v * fireRate);
             base.Uninstall(context);
         }
     }
