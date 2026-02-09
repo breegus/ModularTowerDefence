@@ -33,13 +33,13 @@ namespace Enemies
         {
             health -= damage;
             health = Math.Clamp(health, 0, 100);
+            
+            Debug.Log($"Ouch! I have {health} health left now.");
 
             if (health == 0)
             {
                 Die();
             }
-            
-            Debug.Log($"Ouch! I have {health} health left now.");
         }
     }
 }
