@@ -12,7 +12,7 @@ namespace Towers.Core
             _stats[name] = new TowerStat(value);
         }
 
-        public void AddModifer(string name, Func<float, float> modifier)
+        public void AddModifier(string name, Func<float, float> modifier)
         {
             if (_stats.TryGetValue(name, out var stat))
                 stat.AddModifier(modifier);
