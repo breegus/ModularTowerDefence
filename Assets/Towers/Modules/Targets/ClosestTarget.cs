@@ -6,13 +6,13 @@ namespace Towers.Modules.Targets
     {
         protected override void UpdateTarget()
         {
-            var didHaveTarget = Context.CurrentTarget != null;
-            //Context.CurrentTarget = Context.Enemies.GetClosest(Transform.position);
+            var didHaveTarget = Context.CurrentTarget;
+            Context.CurrentTarget = Context.Enemies.GetClosestTo(Context.TowerTransform.position);
             
-            if (Context.CurrentTarget != null)  // Target found / updated
+            if (Context.CurrentTarget)  // Target found / updated
                 Context.Events.TargetFound(Context.CurrentTarget);
 
-            if (didHaveTarget && Context.CurrentTarget == null)  // Target lost
+            if (didHaveTarget && !Context.CurrentTarget)  // Target lost
                 Context.Events.TargetLost();
         }
     }

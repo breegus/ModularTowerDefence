@@ -17,7 +17,7 @@ namespace Towers.Core
         {
             _context = new TowerContext
             {
-                TargetPos = transform,
+                TowerTransform = transform,
                 Enemies = FindFirstObjectByType<EnemyTracker>(),  // Get tracker from scene
                 Stats = new TowerStats(),
                 Events = new TowerEvents()

@@ -5,7 +5,7 @@ namespace Towers.Core
 {
     public class TowerContext
     {
-        public Transform TargetPos;
+        public Transform TowerTransform;
         public EnemyTracker Enemies;
         public TowerStats Stats;
         public TowerEvents Events;
