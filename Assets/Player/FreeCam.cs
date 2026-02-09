@@ -1,19 +1,48 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Player
 {
     public class FlyCamera : MonoBehaviour
     {
         [Header("Movement Settings")]
-        public float moveSpeed = 10f;        // Movement speed
-        public float boostMultiplier = 2f;   // Speed boost when holding Shift
-        public float lookSpeed = 3f;         // Mouse look sensitivity
+        public float moveSpeed = 15f;  // Movement speed
+        public float sprintMultiplier = 2f;  // Speed boost
+        public float lookSensitivity = 0.2f;  // Mouse look sensitivity
 
+        private InputSystem_Actions _controls;
+        
         private bool _cameraFocused;
+        private float _yaw;
+        private float _pitch;
+
+        private void Awake()
+        {
+            _controls = new InputSystem_Actions();
+        }
+
+        private void OnEnable()
+        {
+            _controls.FreeCam.Enable();
+            SetFocus(true);
+        }
+
+        private void OnDisable()
+        {
+            _controls.FreeCam.Disable();
+            SetFocus(false);
+        }
 
         private void Start()
         {
             SetFocus(false);
+        }
+        
+        private void SetFocus(bool focus)
+        {
+            _cameraFocused = focus;
+            Cursor.visible = !focus;
+            Cursor.lockState = focus ? CursorLockMode.Locked : CursorLockMode.None;
         }
     
         private void OnApplicationFocus(bool hasFocus)
@@ -24,61 +53,35 @@ namespace Player
 
         private void Update()
         {
-            // Only respond if the game window is focused
-            if (!Application.isFocused) return;
+            if (!Application.isFocused) return;  // Only respond if the window is focused
 
-            if (!_cameraFocused && Input.GetMouseButton(0))
+            if (!_cameraFocused && _controls.FreeCam.Unfreeze.IsPressed())  // Unfreeze
                 SetFocus(true);
+            
+            if (_cameraFocused && _controls.FreeCam.Freeze.IsPressed())  // Freeze
+                SetFocus(false);
 
-            // Toggle cursor lock with Escape
-            if (Input.GetKeyDown(KeyCode.Escape))
-                SetFocus(!_cameraFocused);
-        
-            if (!_cameraFocused) return;
-        
-            HandleLook();
-            HandleMovement();
-        }
+            if (!_cameraFocused) return;  // If frozen, do nothing
+            
+            var move = _controls.FreeCam.Move.ReadValue<Vector2>();  // Move
+            var look = _controls.FreeCam.Look.ReadValue<Vector2>();  // Look
+            var elevate = _controls.FreeCam.Elevate.ReadValue<float>();  // Elevate
+            
+            var speed = _controls.FreeCam.Sprint.IsPressed()  // Sprint
+                ? moveSpeed * sprintMultiplier
+                : moveSpeed;
 
-        private void HandleLook()
-        {
-            var mouseX = Input.GetAxis("Mouse X") * lookSpeed;
-            var mouseY = Input.GetAxis("Mouse Y") * lookSpeed;
+            _yaw += look.x * lookSensitivity;
+            _pitch -= look.y * lookSensitivity;
+            _pitch = Mathf.Clamp(_pitch, -89f, 89f);
+            transform.rotation = Quaternion.Euler(_pitch, _yaw, 0f);
 
-            // Rotate camera horizontally
-            transform.Rotate(Vector3.up, mouseX, Space.World);
+            var dir =
+                transform.right * move.x +
+                transform.forward * move.y +
+                transform.up * elevate;
 
-            // Rotate camera vertically
-            transform.Rotate(Vector3.left, mouseY, Space.Self);
-        }
-
-        private void HandleMovement()
-        {
-            var speed = moveSpeed;
-            if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
-                speed *= boostMultiplier;
-
-            var forward = transform.forward;
-            var right = transform.right;
-            var up = transform.up;
-
-            var move = Vector3.zero;
-
-            if (Input.GetKey(KeyCode.W)) move += forward;
-            if (Input.GetKey(KeyCode.S)) move -= forward;
-            if (Input.GetKey(KeyCode.A)) move -= right;
-            if (Input.GetKey(KeyCode.D)) move += right;
-            if (Input.GetKey(KeyCode.Q)) move -= up;
-            if (Input.GetKey(KeyCode.E)) move += up;
-
-            transform.position += move * (speed * Time.deltaTime);
-        }
-
-        private void SetFocus(bool focus)
-        {
-            _cameraFocused = focus;
-            Cursor.visible = !focus;
-            Cursor.lockState = focus ? CursorLockMode.Locked : CursorLockMode.None;
+            transform.position += dir * (speed * Time.deltaTime);
         }
     }
 }
