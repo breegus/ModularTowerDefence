@@ -5,18 +5,18 @@ namespace Towers.Modules.Core
 {
     public abstract class TargetingModule : TowerModule
     {
-        private TowerContext _context;
+        protected TowerContext Context;
         
         public override void Install(TowerContext context)
         {
-            _context = context;
-            _context.Events.OnTick += UpdateTarget;
+            Context = context;
+            Context.Events.OnTick += UpdateTarget;
         }
 
         public override void Uninstall(TowerContext context)
         {
-            _context.Events.OnTick -= UpdateTarget;
-            _context = null;
+            Context.Events.OnTick -= UpdateTarget;
+            Context = null;
         }
         
         protected abstract void UpdateTarget();

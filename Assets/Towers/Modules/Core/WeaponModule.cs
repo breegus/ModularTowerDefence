@@ -5,16 +5,16 @@ namespace Towers.Modules.Core
 {
     public abstract class WeaponModule : TowerModule
     {
-        private TowerContext _context;
-
+        protected TowerContext Context;
+        
         public override void Install(TowerContext context)
         {
-            _context = context;
+            Context = context;
         }
 
         public override void Uninstall(TowerContext context)
         {
-            _context = null;
+            Context = null;
         }
     }
 }
