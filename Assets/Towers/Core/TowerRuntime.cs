@@ -57,7 +57,7 @@ namespace Towers.Core
 
         public void OnDrawGizmos()
         {
-            if (!_context.CurrentTarget) return;
+            if (_context == null || !_context.CurrentTarget) return;
             Gizmos.color = Color.red;
             Gizmos.DrawLine(transform.position, _context.CurrentTarget.transform.position);
 
