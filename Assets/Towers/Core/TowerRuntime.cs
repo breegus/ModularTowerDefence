@@ -3,7 +3,6 @@ using System.Linq;
 using Towers.Data;
 using Towers.Modules.Core;
 using UnityEngine;
-using UnityEngine.Experimental.Rendering;
 
 namespace Towers.Core
 {
@@ -19,8 +18,8 @@ namespace Towers.Core
             _context = new TowerContext
             {
                 TargetPos = transform,
-                //Enemies = FindObjectOfType<EnemyTracker>(),
-                //Stats = new StatCollection();
+                Enemies = FindFirstObjectByType<EnemyTracker>(),  // Get tracker from scene
+                Stats = new TowerStats(),
                 Events = new TowerEvents()
             };
 
