@@ -1,4 +1,5 @@
 using Enemies;
+using TMPro.EditorUtilities;
 using Towers.Core;
 using Towers.Modules.Core;
 using UnityEngine;
@@ -41,6 +42,7 @@ namespace Towers.Modules.Weapons
 
         void Fire(Enemy target)
         {
+            Debug.DrawLine(Context.TowerTransform.position, target.transform.position, Color.yellow, 0.2f);
             target.TakeDamage(Context.Stats.Get("Damage"));
             Context.Events.Hit(target);
         }
