@@ -11,6 +11,7 @@ namespace Towers.Core
 
         public void AddEnemy(Enemy enemy)
         {
+            Debug.Log("Added enemy");
             if (!_enemies.Contains(enemy))
                 _enemies.Add(enemy);
         }

@@ -1,7 +1,9 @@
 using Towers.Modules.Core;
+using UnityEngine;
 
 namespace Towers.Modules.Targets
 {
+    [CreateAssetMenu(menuName = "Towers/Modules/Targets/ClosestTarget")]
     public class ClosestTarget : TargetingModule
     {
         protected override void UpdateTarget()

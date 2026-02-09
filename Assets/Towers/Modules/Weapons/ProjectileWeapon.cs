@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Towers.Modules.Weapons
 {
-    [CreateAssetMenu(menuName = "Tower Modules/Weapons/Projectile")]
+    [CreateAssetMenu(menuName = "Towers/Modules/Weapons/ProjectileWeapon")]
     public class ProjectileWeapon : WeaponModule
     {
         public float fireRate = 0.5f;
@@ -30,7 +30,7 @@ namespace Towers.Modules.Weapons
         void TryFire()
         {
             _fireRateTimer -= Time.deltaTime;
-            if (_fireRateTimer <= 0f) return;
+            if (_fireRateTimer >= 0f) return;
 
             if (!Context.CurrentTarget) return;  // No target set
             

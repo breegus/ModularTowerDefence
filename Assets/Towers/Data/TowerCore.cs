@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Towers.Data
 {
-    [CreateAssetMenu(fileName = "TowerData", menuName = "Towers/Core")]
+    [CreateAssetMenu(menuName = "Towers/TowerCore")]
     public class TowerCore : ScriptableObject
     {
         public List<ModuleSocket> sockets;
