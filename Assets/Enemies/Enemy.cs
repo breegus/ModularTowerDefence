@@ -1,18 +1,22 @@
 using Towers.Core;
 using System;
+using System.Globalization;
+using TMPro;
 using UnityEngine;
-
 
 namespace Enemies
 {
     public class Enemy : MonoBehaviour
     {
         public float health;
+        public TMP_Text healthText;
         private EnemyTracker _tracker;
 
         public Enemy(float health)
         {
             this.health = health;
+            if (healthText)
+                healthText.text = health.ToString(CultureInfo.InvariantCulture);
         }
 
         public void OnEnable()
@@ -32,8 +36,11 @@ namespace Enemies
         public void TakeDamage(float damage)
         {
             health -= damage;
-            health = Math.Clamp(health, 0, 100);
-            
+            if (health < 0)
+                health = 0;
+
+            if (healthText)
+                healthText.text = health.ToString(CultureInfo.InvariantCulture);
             Debug.Log($"Ouch! I have {health} health left now.");
 
             if (health == 0)
