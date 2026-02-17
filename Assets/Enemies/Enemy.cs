@@ -15,14 +15,15 @@ namespace Enemies
         public Enemy(float health)
         {
             this.health = health;
-            if (healthText)
-                healthText.text = health.ToString(CultureInfo.InvariantCulture);
+            
         }
 
         public void OnEnable()
         {
             _tracker = FindFirstObjectByType<EnemyTracker>();
             _tracker.AddEnemy(this);
+            if (healthText)
+                healthText.text = health.ToString(CultureInfo.InvariantCulture);
         }
 
         public void Die()
