@@ -1,5 +1,4 @@
 using Enemies;
-using TMPro.EditorUtilities;
 using Towers.Core;
 using Towers.Modules.Core;
 using UnityEngine;
@@ -11,6 +10,7 @@ namespace Towers.Modules.Weapons
     {
         public float fireRate = 0.5f;
         public float damage = 5.0f;
+        public Mesh weaponMesh;
         
         private float _fireRateTimer;
 
@@ -28,19 +28,21 @@ namespace Towers.Modules.Weapons
             base.Uninstall(context);
         }
 
-        void TryFire()
+        public void TryFire()
         {
             _fireRateTimer -= Time.deltaTime;
             if (_fireRateTimer >= 0f) return;
 
             if (!Context.CurrentTarget) return;  // No target set
             
+            
+            
             Fire(Context.CurrentTarget);
 
             _fireRateTimer = Context.Stats.Get("FireRate");
         }
 
-        void Fire(Enemy target)
+        private void Fire(Enemy target)
         {
             Debug.DrawLine(Context.TowerTransform.position, target.transform.position, Color.yellow, 0.2f);
             target.TakeDamage(Context.Stats.Get("Damage"));

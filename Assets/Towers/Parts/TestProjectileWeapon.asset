@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: TestProjectileWeapon
   m_EditorClassIdentifier: Assembly-CSharp::Towers.Modules.Weapons.ProjectileWeapon
   fireRate: 0.5
-  damage: 5
+  damage: 2
+  weaponMesh: {fileID: 0}
