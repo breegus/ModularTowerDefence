@@ -18,8 +18,8 @@ namespace Towers.Modules.Weapons
         {
             base.Install(context);
             Context.Events.OnTick += TryFire;
-            Context.Stats.SetBase("FireRate", fireRate);
-            Context.Stats.SetBase("Damage", damage);
+            Context.StatManager.SetBase("FireRate", fireRate);
+            Context.StatManager.SetBase("Damage", damage);
         }
 
         public override void Uninstall(TowerContext context)
@@ -35,17 +35,15 @@ namespace Towers.Modules.Weapons
 
             if (!Context.CurrentTarget) return;  // No target set
             
-            
-            
             Fire(Context.CurrentTarget);
 
-            _fireRateTimer = Context.Stats.Get("FireRate");
+            _fireRateTimer = Context.StatManager.Get("FireRate");
         }
 
         private void Fire(Enemy target)
         {
             Debug.DrawLine(Context.TowerTransform.position, target.transform.position, Color.yellow, 0.2f);
-            target.TakeDamage(Context.Stats.Get("Damage"));
+            target.TakeDamage(Context.StatManager.Get("Damage"));
             Context.Events.Hit(target);
         }
     }

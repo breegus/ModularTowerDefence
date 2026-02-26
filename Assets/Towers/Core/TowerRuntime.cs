@@ -11,7 +11,7 @@ namespace Towers.Core
         public TowerCore core;
 
         private TowerContext _context;
-        private List<TowerModule> _modules = new();
+        private readonly List<TowerModule> _modules = new();
 
         private void Start()
         {
@@ -19,7 +19,7 @@ namespace Towers.Core
             {
                 TowerTransform = transform,
                 Enemies = FindFirstObjectByType<EnemyTracker>(),  // Get tracker from scene
-                Stats = new TowerStats(),
+                StatManager = new TowerStatManager(),
                 Events = new TowerEvents()
             };
 
@@ -28,9 +28,14 @@ namespace Towers.Core
 
         private void Build()
         {
+            if (!core.sockets.Any()) return;  // Do nothing if empty
+            
+            Debug.Log($"Building {core.sockets.Count()} sockets: {core.sockets}");
+            
             // Create and install each module to sockets
-            foreach (var instance in core.sockets.Select(socket => Instantiate(socket.module)))
+            foreach (var instance in core.sockets.Select(Instantiate))
             {
+                //if (!instance) continue;
                 instance.Install(_context);
                 _modules.Add(instance);
             }
@@ -41,15 +46,16 @@ namespace Towers.Core
             _context.Events.Tick();  // Update ticked modules
         }
 
-        public void ReplaceModule(ModuleSocket socket, TowerModule newModule)
+        public void ReplaceModule(TowerModule oldModule, TowerModule newModule)
         {
-            var oldModule = socket.module;  // Uninstall and delete old module
-            oldModule.Uninstall(_context);
+            oldModule.Uninstall(_context);  // Uninstall and delete old module
+            
+            var moduleIndex = _modules.IndexOf(oldModule);  // Remember old index
             _modules.Remove(oldModule);
             Destroy(oldModule);
-
+            
             var instance = Instantiate(newModule);  // Create and install new module
-            socket.module = instance;
+            _modules.Insert(moduleIndex, instance);  // Insert module into old index (replace)
             instance.Install(_context);
             _modules.Add(instance);
         }
@@ -58,10 +64,11 @@ namespace Towers.Core
         {
             if (_context == null || !_context.CurrentTarget) return;
             Gizmos.color = Color.red;
+            Debug.Log(_context.CurrentTarget.transform.position);
             Gizmos.DrawLine(transform.position, _context.CurrentTarget.transform.position);
 
             Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(transform.position, _context?.Stats.Get("Range") ?? 5f);
+            Gizmos.DrawWireSphere(transform.position, _context?.StatManager.Get("Range") ?? 5f);
         }
     }
 }
