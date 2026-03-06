@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using Towers.Data;
 using Towers.Modules.Core;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Towers.Core
@@ -11,54 +13,136 @@ namespace Towers.Core
         public TowerCore core;
 
         private TowerContext _context;
-        private readonly List<TowerModule> _modules = new();
+
+        private TowerModule _targetModule;
+        private TowerModule _weaponModule;
+        private List<TowerModule> _modifierModules = new();
 
         private void Start()
         {
             _context = new TowerContext
             {
                 TowerTransform = transform,
-                Enemies = FindFirstObjectByType<EnemyTracker>(),  // Get tracker from scene
+                Enemies = FindFirstObjectByType<EnemyTracker>(), // Get tracker from scene
                 StatManager = new TowerStatManager(),
                 Events = new TowerEvents()
             };
+
+            if (!_context.Enemies)
+            {
+                Debug.LogError("TowerRuntime: Couldn't find an EnemyTracker. Please make sure there is a single instance in the scene!");
+            }
 
             Build();
         }
 
         private void Build()
         {
-            if (!core.sockets.Any()) return;  // Do nothing if empty
+            Debug.Log("TowerRuntime: Building Tower Modules...");
+
+            InstallModule(core.targetingModule);  // Targeting & Weapon modules
+            InstallModule(core.weaponModule);
+
+            if (!core.modifierModules.Any()) return;  // Modifier module(s)
+            Debug.Log($"TowerRuntime: Installing {core.modifierModules.Count()} modifiers: {core.modifierModules}");
             
-            Debug.Log($"Building {core.sockets.Count()} sockets: {core.sockets}");
-            
-            // Create and install each module to sockets
-            foreach (var instance in core.sockets.Select(Instantiate))
+            foreach (var modifier in core.modifierModules)
             {
-                //if (!instance) continue;
-                instance.Install(_context);
-                _modules.Add(instance);
+                InstallModule(modifier);
             }
         }
 
         private void Update()
         {
-            _context.Events.Tick();  // Update ticked modules
+            _context.Events.Tick(); // Update ticked modules
+        }
+
+        public void InstallModule(TowerModule newModule)
+        {
+            if (!newModule) return;
+
+            Debug.Log($"TowerRuntime: Installing new {newModule.type.ToString()} module.");
+            
+            var instance = Instantiate(newModule);  // Create new module
+            
+            switch (newModule.type)
+            {
+                case ModuleType.Weapon:  // Weapon
+                    _weaponModule = instance;
+                    break;
+                case ModuleType.Targeting:  // Targeting
+                    _targetModule = instance;
+                    break;
+                case ModuleType.Modifier:  // Modifier
+                    _modifierModules.Add(instance);
+                    break;
+                default:
+                    Debug.LogWarning("TowerRuntime: Module type unknown when installing module.");
+                    return;
+            }
+            
+            instance.Install(_context);
+        }
+
+        public void UninstallModule([CanBeNull] TowerModule oldModule)
+        {
+            if (!oldModule) return;
+            
+            Debug.Log($"TowerRuntime: Uninstalling {oldModule.type.ToString()} module.");
+
+            oldModule.Uninstall(_context);
+            
+            switch (oldModule.type)
+            {
+                case ModuleType.Weapon:  // Weapon
+                    _weaponModule = null;
+                    break;
+                case ModuleType.Targeting:  // Targeting
+                    _targetModule = null;
+                    break;
+                case ModuleType.Modifier:  // Modifier
+                    _modifierModules.Remove(oldModule);
+                    break;
+                default:
+                    Debug.LogWarning("TowerRuntime: Module type unknown when uninstalling module.");
+                    return;
+            }
+            
+            Destroy(oldModule);
         }
 
         public void ReplaceModule(TowerModule oldModule, TowerModule newModule)
-        {
-            oldModule.Uninstall(_context);  // Uninstall and delete old module
-            
-            var moduleIndex = _modules.IndexOf(oldModule);  // Remember old index
-            _modules.Remove(oldModule);
-            Destroy(oldModule);
-            
-            var instance = Instantiate(newModule);  // Create and install new module
-            _modules.Insert(moduleIndex, instance);  // Insert module into old index (replace)
-            instance.Install(_context);
-            _modules.Add(instance);
-        }
+            {
+                if (newModule.type != oldModule.type)  // Sanity check module types match to prevent errors
+                {
+                    Debug.LogError($"TowerRuntime: Module type mismatch when replacing! ({oldModule.type.ToString()}) -> {newModule.type.ToString()})");
+                    return;
+                }
+                
+                oldModule.Uninstall(_context);  // Uninstall and delete old module
+                Destroy(oldModule);
+                
+                var instance = Instantiate(newModule);
+                
+                switch (oldModule.type)
+                {
+                    case ModuleType.Weapon:  // Replace weapon module
+                        _weaponModule = instance;
+                        break;
+                    case ModuleType.Targeting:  // Replace target module
+                        _targetModule = instance;
+                        break;
+                    case ModuleType.Modifier:  // Replace modifier module
+                        var moduleIndex = _modifierModules.IndexOf(oldModule);  // Remember old index
+                        _modifierModules[moduleIndex] = instance;  // Insert module into old index (replacing old)
+                        break;
+                    default:
+                        Debug.LogWarning("TowerRuntime: Module type unknown when replacing module.");
+                        return;
+                }
+                
+                instance.Install(_context);
+            }
 
         public void OnDrawGizmos()
         {

@@ -34,7 +34,7 @@ namespace Towers.Modules.Weapons
             base.Uninstall(context);
         }
 
-        public void TryFire()
+        private void TryFire()
         {
             _fireRateTimer -= Time.deltaTime;
             if (_fireRateTimer >= 0f) return;

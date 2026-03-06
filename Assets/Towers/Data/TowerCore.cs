@@ -7,6 +7,8 @@ namespace Towers.Data
     [CreateAssetMenu(menuName = "Towers/TowerCore")]
     public class TowerCore : ScriptableObject
     {
-        public List<TowerModule> sockets;
+        public TargetingModule targetingModule;
+        public WeaponModule weaponModule;
+        public List<ModifierModule> modifierModules;
     }
 }
