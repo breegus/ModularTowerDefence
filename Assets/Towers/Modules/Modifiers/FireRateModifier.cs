@@ -12,12 +12,12 @@ namespace Towers.Modules.Modifiers
         public override void Install(TowerContext context)
         {
             base.Install(context);
-            Context.Stats.AddModifier("FireRate", v => v * fireRate);
+            Context.StatManager.AddModifier("FireRate", v => v * fireRate);
         }
 
         public override void Uninstall(TowerContext context)
         {
-            Context.Stats.RemoveModifier("FireRate", v => v * fireRate);
+            Context.StatManager.RemoveModifier("FireRate", v => v * fireRate);
             base.Uninstall(context);
         }
     }

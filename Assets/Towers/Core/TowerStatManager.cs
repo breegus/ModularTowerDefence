@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Towers.Core
 {
-    public class TowerStats
+    public class TowerStatManager
     {
         private Dictionary<string, TowerStat> _stats = new();
 

@@ -1,5 +1,4 @@
 using Enemies;
-using TMPro.EditorUtilities;
 using Towers.Core;
 using Towers.Modules.Core;
 using UnityEngine;
@@ -12,14 +11,21 @@ namespace Towers.Modules.Weapons
         public float fireRate = 0.5f;
         public float damage = 5.0f;
         
+        public GameObject weaponPrefab;  // Weapon visuals
+        public Vector3 weaponOffset;
+        public Vector3 weaponRotationOffset;
+        
+        public GameObject projectilePrefab;  // Projectile visual
+
+        private GameObject _instance;  // Held object for weapon prefabs
         private float _fireRateTimer;
 
         public override void Install(TowerContext context)
         {
             base.Install(context);
             Context.Events.OnTick += TryFire;
-            Context.Stats.SetBase("FireRate", fireRate);
-            Context.Stats.SetBase("Damage", damage);
+            Context.StatManager.SetBase("FireRate", fireRate);
+            Context.StatManager.SetBase("Damage", damage);
         }
 
         public override void Uninstall(TowerContext context)
@@ -28,7 +34,7 @@ namespace Towers.Modules.Weapons
             base.Uninstall(context);
         }
 
-        void TryFire()
+        private void TryFire()
         {
             _fireRateTimer -= Time.deltaTime;
             if (_fireRateTimer >= 0f) return;
@@ -37,13 +43,13 @@ namespace Towers.Modules.Weapons
             
             Fire(Context.CurrentTarget);
 
-            _fireRateTimer = Context.Stats.Get("FireRate");
+            _fireRateTimer = Context.StatManager.Get("FireRate");
         }
 
-        void Fire(Enemy target)
+        private void Fire(Enemy target)
         {
             Debug.DrawLine(Context.TowerTransform.position, target.transform.position, Color.yellow, 0.2f);
-            target.TakeDamage(Context.Stats.Get("Damage"));
+            target.TakeDamage(Context.StatManager.Get("Damage"));
             Context.Events.Hit(target);
         }
     }

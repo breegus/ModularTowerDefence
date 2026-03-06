@@ -12,5 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ed84c7a36c31684688c4af35791e5cd, type: 3}
   m_Name: TestProjectileWeapon
   m_EditorClassIdentifier: Assembly-CSharp::Towers.Modules.Weapons.ProjectileWeapon
+  type: 0
   fireRate: 0.5
-  damage: 5
+  damage: 2
+  weaponMesh: {fileID: 5577148390584326913, guid: 442f42b8ce4d8d544891c811bba37751, type: 3}
+  weaponOffset: {x: 0, y: 0, z: 0}
+  weaponRotationOffset: {x: 0, y: 0, z: 0}
