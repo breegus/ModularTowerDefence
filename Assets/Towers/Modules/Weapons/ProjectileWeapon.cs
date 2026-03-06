@@ -10,8 +10,14 @@ namespace Towers.Modules.Weapons
     {
         public float fireRate = 0.5f;
         public float damage = 5.0f;
-        public Mesh weaponMesh;
         
+        public GameObject weaponPrefab;  // Weapon visuals
+        public Vector3 weaponOffset;
+        public Vector3 weaponRotationOffset;
+        
+        public GameObject projectilePrefab;  // Projectile visual
+
+        private GameObject _instance;  // Held object for weapon prefabs
         private float _fireRateTimer;
 
         public override void Install(TowerContext context)
