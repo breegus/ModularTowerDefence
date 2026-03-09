@@ -12,6 +12,8 @@ namespace Towers.Core
     {
         public TowerCore core;
 
+        public Vector3 weaponOffset;
+
         private TowerContext _context;
 
         private TowerModule _targetModule;
@@ -23,6 +25,7 @@ namespace Towers.Core
             _context = new TowerContext
             {
                 TowerTransform = transform,
+                WeaponOffset = weaponOffset,
                 Enemies = FindFirstObjectByType<EnemyTracker>(), // Get tracker from scene
                 StatManager = new TowerStatManager(),
                 Events = new TowerEvents()
@@ -149,10 +152,16 @@ namespace Towers.Core
             if (_context == null || !_context.CurrentTarget) return;
             Gizmos.color = Color.red;
             Debug.Log(_context.CurrentTarget.transform.position);
-            Gizmos.DrawLine(transform.position, _context.CurrentTarget.transform.position);
+            Gizmos.DrawLine(transform.position + weaponOffset, _context.CurrentTarget.transform.position);
 
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(transform.position, _context?.StatManager.Get("Range") ?? 5f);
+        }
+
+        public void OnDrawGizmosSelected()
+        {
+            Gizmos.color = Color.lightSkyBlue;
+            Gizmos.DrawSphere(transform.position + weaponOffset, 0.25f);
         }
     }
 }

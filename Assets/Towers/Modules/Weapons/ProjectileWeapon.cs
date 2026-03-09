@@ -1,5 +1,5 @@
 using Enemies;
-using Towers.Core;
+using Towers.Data;
 using Towers.Modules.Core;
 using UnityEngine;
 
@@ -12,9 +12,6 @@ namespace Towers.Modules.Weapons
         public float damage = 5.0f;
         
         public GameObject weaponPrefab;  // Weapon visuals
-        public Vector3 weaponOffset;
-        public Vector3 weaponRotationOffset;
-        
         public GameObject projectilePrefab;  // Projectile visual
 
         private GameObject _instance;  // Held object for weapon prefabs
@@ -23,6 +20,10 @@ namespace Towers.Modules.Weapons
         public override void Install(TowerContext context)
         {
             base.Install(context);
+
+            _instance = Instantiate(weaponPrefab, Context.TowerTransform, false);
+            _instance.transform.position += Context.WeaponOffset;
+
             Context.Events.OnTick += TryFire;
             Context.StatManager.SetBase("FireRate", fireRate);
             Context.StatManager.SetBase("Damage", damage);
@@ -36,19 +37,22 @@ namespace Towers.Modules.Weapons
 
         private void TryFire()
         {
-            _fireRateTimer -= Time.deltaTime;
-            if (_fireRateTimer >= 0f) return;
-
             if (!Context.CurrentTarget) return;  // No target set
-            
-            Fire(Context.CurrentTarget);
 
-            _fireRateTimer = Context.StatManager.Get("FireRate");
+            if (TowerAim.AimTowards(_instance.transform, Context.CurrentTarget.transform.position))
+            {
+                _fireRateTimer -= Time.deltaTime;
+                if (_fireRateTimer >= 0f) return;
+                            
+                Fire(Context.CurrentTarget);
+                
+                _fireRateTimer = Context.StatManager.Get("FireRate");
+            };
         }
 
         private void Fire(Enemy target)
         {
-            Debug.DrawLine(Context.TowerTransform.position, target.transform.position, Color.yellow, 0.2f);
+            Debug.DrawLine(_instance.transform.position, target.transform.position, Color.yellow, 0.2f, false);
             target.TakeDamage(Context.StatManager.Get("Damage"));
             Context.Events.Hit(target);
         }

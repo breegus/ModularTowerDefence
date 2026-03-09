@@ -15,6 +15,7 @@ MonoBehaviour:
   type: 0
   fireRate: 0.5
   damage: 2
-  weaponMesh: {fileID: 5577148390584326913, guid: 442f42b8ce4d8d544891c811bba37751, type: 3}
+  weaponPrefab: {fileID: 5577148390584326913, guid: 442f42b8ce4d8d544891c811bba37751, type: 3}
   weaponOffset: {x: 0, y: 0, z: 0}
   weaponRotationOffset: {x: 0, y: 0, z: 0}
+  projectilePrefab: {fileID: 0}
