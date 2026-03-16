@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f965f8fbd569a44daac109b8fc79e70, type: 3}
   m_Name: TestTowerCore
   m_EditorClassIdentifier: Assembly-CSharp::Towers.Data.TowerCore
-  targetingModule: {fileID: 11400000, guid: 033c245d0bc4207428668ef3b8596659, type: 2}
+  targetingModule: {fileID: 11400000, guid: 9d7e23f9caca8ad4f92d58d6c897b681, type: 2}
   weaponModule: {fileID: 11400000, guid: ba2836c863bbc0b46a2581e76d127166, type: 2}
   modifierModules: []

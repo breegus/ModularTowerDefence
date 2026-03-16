@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Enemies;
 using UnityEngine;
@@ -26,39 +27,29 @@ namespace Towers.Core
             return new List<Enemy>(_enemies);  // Return copy of list, not original!
         }
 
-        public Enemy GetClosestTo(Vector3 pos)
+        public int GetIndexOf(Enemy enemy)
         {
-            Enemy closest = null;
-            var minDist = float.MaxValue;
-
-            foreach (var enemy in _enemies)
-            {
-                var dist = Vector3.Distance(pos, enemy.transform.position);
-                if (dist < minDist)
-                {
-                    minDist = dist;
-                    closest = enemy;
-                }
-            }
-
-            return closest;
+            return _enemies.IndexOf(enemy);
         }
 
-        public Enemy GetStrongest()
+        public Enemy GetFirstAscending<TKey>(Func<Enemy, TKey> sortMethod)
         {
-            return _enemies.OrderByDescending(e => e.health).FirstOrDefault();
+            return _enemies.OrderBy(sortMethod).FirstOrDefault();
         }
 
-        public Enemy GetWeakest()
+        public Enemy GetFirstDescending<TKey>(Func<Enemy, TKey> sortMethod)
         {
-            return _enemies.OrderByDescending(e => e.health).LastOrDefault();
+            return _enemies.OrderByDescending(sortMethod).FirstOrDefault();
         }
 
-        public Enemy GetRandom()
+        public List<Enemy> GetAllAscending<TKey>(Func<Enemy, TKey> sortMethod)
         {
-            if (_enemies.Count == 0) return null;
-            var index = Random.Range(0, _enemies.Count);
-            return _enemies[index];
+            return _enemies.OrderBy(sortMethod).ToList();
+        }
+
+        public List<Enemy> GetAllDescending<TKey>(Func<Enemy, TKey> sortMethod)
+        {
+            return _enemies.OrderByDescending(sortMethod).ToList();
         }
     }
 }

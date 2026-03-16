@@ -9,7 +9,8 @@ namespace Towers.Modules.Targets
         protected override void UpdateTarget()
         {
             var didHaveTarget = Context.CurrentTarget;
-            Context.CurrentTarget = Context.Enemies.GetStrongest();
+            
+            Context.CurrentTarget = Context.Enemies.GetFirstDescending(e => e.health);
             
             if (Context.CurrentTarget)  // Target found / updated
                 Context.Events.TargetFound(Context.CurrentTarget);
