@@ -4,7 +4,7 @@ using System.Linq;
 using Enemies;
 using UnityEngine;
 
-namespace Towers.Core
+namespace MTS.Core
 {
     public class EnemyTracker : MonoBehaviour
     {

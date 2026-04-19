@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Towers.Modules.Core
+namespace MTS.Modules.Core
 {
     public static class TowerAim
     {

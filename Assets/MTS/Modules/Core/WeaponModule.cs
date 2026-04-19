@@ -1,8 +1,6 @@
-using Towers.Core;
-using Towers.Data;
-using UnityEngine;
+using MTS.Data;
 
-namespace Towers.Modules.Core
+namespace MTS.Modules.Core
 {
     public abstract class WeaponModule : TowerModule
     {

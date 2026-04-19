@@ -1,8 +1,7 @@
-using Towers.Core;
-using Towers.Data;
+using MTS.Data;
 using UnityEngine;
 
-namespace Towers.Modules.Core
+namespace MTS.Modules.Core
 {
     public enum ModuleType
     {
@@ -13,11 +12,11 @@ namespace Towers.Modules.Core
     
     public abstract class TowerModule : ScriptableObject
     {
-        public ModuleType type;
+        public readonly ModuleType Type;
 
         protected TowerModule(ModuleType type)
         {
-            this.type = type;
+            this.Type = type;
         }
         public abstract void Install(TowerContext context);
         public abstract void Uninstall(TowerContext context);

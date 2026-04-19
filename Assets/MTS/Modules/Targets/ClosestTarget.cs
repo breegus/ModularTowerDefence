@@ -1,8 +1,8 @@
 using Enemies;
-using Towers.Modules.Core;
+using MTS.Modules.Core;
 using UnityEngine;
 
-namespace Towers.Modules.Targets
+namespace MTS.Modules.Targets
 {
     [CreateAssetMenu(menuName = "Towers/Modules/Targets/ClosestTarget")]
     public class ClosestTarget : TargetingModule

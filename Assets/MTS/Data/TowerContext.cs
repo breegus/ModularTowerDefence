@@ -1,8 +1,8 @@
 using Enemies;
+using MTS.Core;
 using UnityEngine;
-using Towers.Core;
 
-namespace Towers.Data
+namespace MTS.Data
 {
     public class TowerContext
     {

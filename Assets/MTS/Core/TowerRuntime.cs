@@ -1,12 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
-using Towers.Data;
-using Towers.Modules.Core;
-using Unity.VisualScripting;
+using MTS.Data;
+using MTS.Modules.Core;
 using UnityEngine;
 
-namespace Towers.Core
+namespace MTS.Core
 {
     public class TowerRuntime : MonoBehaviour
     {
@@ -64,11 +63,11 @@ namespace Towers.Core
         {
             if (!newModule) return;
 
-            Debug.Log($"TowerRuntime: Installing new {newModule.type.ToString()} module.");
+            Debug.Log($"TowerRuntime: Installing new {newModule.Type.ToString()} module.");
             
             var instance = Instantiate(newModule);  // Create new module
             
-            switch (newModule.type)
+            switch (newModule.Type)
             {
                 case ModuleType.Weapon:  // Weapon
                     _weaponModule = instance;
@@ -91,11 +90,11 @@ namespace Towers.Core
         {
             if (!oldModule) return;
             
-            Debug.Log($"TowerRuntime: Uninstalling {oldModule.type.ToString()} module.");
+            Debug.Log($"TowerRuntime: Uninstalling {oldModule.Type.ToString()} module.");
 
             oldModule.Uninstall(_context);
             
-            switch (oldModule.type)
+            switch (oldModule.Type)
             {
                 case ModuleType.Weapon:  // Weapon
                     _weaponModule = null;
@@ -116,9 +115,9 @@ namespace Towers.Core
 
         public void ReplaceModule(TowerModule oldModule, TowerModule newModule)
             {
-                if (newModule.type != oldModule.type)  // Sanity check module types match to prevent errors
+                if (newModule.Type != oldModule.Type)  // Sanity check module types match to prevent errors
                 {
-                    Debug.LogError($"TowerRuntime: Module type mismatch when replacing! ({oldModule.type.ToString()}) -> {newModule.type.ToString()})");
+                    Debug.LogError($"TowerRuntime: Module type mismatch when replacing! ({oldModule.Type.ToString()}) -> {newModule.Type.ToString()})");
                     return;
                 }
                 
@@ -127,7 +126,7 @@ namespace Towers.Core
                 
                 var instance = Instantiate(newModule);
                 
-                switch (oldModule.type)
+                switch (oldModule.Type)
                 {
                     case ModuleType.Weapon:  // Replace weapon module
                         _weaponModule = instance;

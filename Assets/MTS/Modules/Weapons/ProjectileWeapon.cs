@@ -1,9 +1,9 @@
 using Enemies;
-using Towers.Data;
-using Towers.Modules.Core;
+using MTS.Data;
+using MTS.Modules.Core;
 using UnityEngine;
 
-namespace Towers.Modules.Weapons
+namespace MTS.Modules.Weapons
 {
     [CreateAssetMenu(menuName = "Towers/Modules/Weapons/ProjectileWeapon")]
     public class ProjectileWeapon : WeaponModule

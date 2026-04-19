@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Towers.Core
+namespace MTS.Core
 {
     public class TowerGizmo : MonoBehaviour
     {

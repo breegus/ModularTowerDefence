@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Towers.Core
+namespace MTS.Core
 {
     public class TowerStatManager
     {

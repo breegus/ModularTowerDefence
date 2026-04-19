@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Towers.Core
+namespace MTS.Core
 {
     public class TowerStat
     {
