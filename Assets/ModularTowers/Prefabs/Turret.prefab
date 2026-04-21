@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5976908882867734063}
+  - component: {fileID: 8532860859349137978}
   m_Layer: 0
   m_Name: Turret
   m_TagString: Untagged
@@ -32,6 +33,20 @@ Transform:
   - {fileID: 3638326498226631609}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8532860859349137978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5577148390584326913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0cc885d8b08e334991f0f7497a028df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MTS.Modules.Core.WeaponPrefabRig
+  pitch: {fileID: 6666547444407330010}
+  yaw: {fileID: 6666547444407330010}
 --- !u!1001 &3888673358837781586
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -92,5 +107,10 @@ PrefabInstance:
 --- !u!4 &3638326498226631609 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 67d100b95657ed649a5424cad6255295, type: 3}
+  m_PrefabInstance: {fileID: 3888673358837781586}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6666547444407330010 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7598419493678936200, guid: 67d100b95657ed649a5424cad6255295, type: 3}
   m_PrefabInstance: {fileID: 3888673358837781586}
   m_PrefabAsset: {fileID: 0}
