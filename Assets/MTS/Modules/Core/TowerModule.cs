@@ -16,9 +16,17 @@ namespace MTS.Modules.Core
 
         protected TowerModule(ModuleType type)
         {
-            this.Type = type;
+            Type = type;
         }
+        
+        /// <summary>
+        /// Called when the tower needs to use the module
+        /// </summary>
         public abstract void Install(TowerContext context);
+        
+        /// <summary>
+        /// Called when the tower is done using the module
+        /// </summary>
         public abstract void Uninstall(TowerContext context);
     }
 }

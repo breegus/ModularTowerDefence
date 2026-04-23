@@ -2,6 +2,7 @@ using Enemies;
 using MTS.Data;
 using MTS.Modules.Core;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace MTS.Modules.Weapons
 {
@@ -37,8 +38,13 @@ namespace MTS.Modules.Weapons
         private void TryFire()
         {
             if (!Context.CurrentTarget) return;  // No target set
+            
+            var canFire = UseRig ? TowerAim.AimRigTowards(Rig, Context.CurrentTarget.transform.position) : 
+                TowerAim.DefaultAimTowards(Instance.transform, Context.CurrentTarget.transform.position);
+            
+            Debug.DrawLine(UseRig ? Rig.projectileOffset.position : Instance.transform.position, Context.CurrentTarget.transform.position, Color.red, 0.01f);
 
-            if (TowerAim.AimTowards(Instance.transform, Context.CurrentTarget.transform.position))
+            if (canFire)
             {
                 _fireRateTimer -= Time.deltaTime;
                 if (_fireRateTimer >= 0f) return;
@@ -51,7 +57,7 @@ namespace MTS.Modules.Weapons
 
         private void Fire(Enemy target)
         {
-            Debug.DrawLine(Instance.transform.position, target.transform.position, Color.yellow, 0.2f, false);
+            Debug.DrawLine(UseRig ? Rig.projectileOffset.position : Instance.transform.position, target.transform.position, Color.yellow, 0.2f, false);
             target.TakeDamage(Context.StatManager.Get("Damage"));
             Context.Events.Hit(target);
         }

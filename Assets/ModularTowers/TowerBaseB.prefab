@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5783492836248594889}
   - component: {fileID: 1523843622234408035}
   m_Layer: 0
-  m_Name: TowerA
+  m_Name: TowerBaseB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,7 +30,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4263892388101119279}
+  - {fileID: 689208833642695288}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1523843622234408035
@@ -45,9 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6712b260e902ddc41a3e4220f5df2c9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Towers.Core.TowerRuntime
-  core: {fileID: 11400000, guid: ec2557fbe617e424fbddb721bad22956, type: 2}
-  weaponOffset: {x: 0, y: 0, z: 1}
---- !u!1001 &4370421231258647236
+  core: {fileID: 11400000, guid: c4f47d478a409864284f61113e1ff3e2, type: 2}
+  weaponOffset: {x: 0, y: 0.84846187, z: -0.009596944}
+--- !u!1001 &1016184817612025235
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -55,57 +55,57 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5783492836248594889}
     m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: 52b6af4c3a2692f4cbf24cf05d64f03c, type: 3}
+    - target: {fileID: -8679921383154817045, guid: b09b8564272dadf4d82ff7d664fc3e9e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 52b6af4c3a2692f4cbf24cf05d64f03c, type: 3}
+    - target: {fileID: -8679921383154817045, guid: b09b8564272dadf4d82ff7d664fc3e9e, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 52b6af4c3a2692f4cbf24cf05d64f03c, type: 3}
+    - target: {fileID: -8679921383154817045, guid: b09b8564272dadf4d82ff7d664fc3e9e, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 52b6af4c3a2692f4cbf24cf05d64f03c, type: 3}
+    - target: {fileID: -8679921383154817045, guid: b09b8564272dadf4d82ff7d664fc3e9e, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 52b6af4c3a2692f4cbf24cf05d64f03c, type: 3}
+    - target: {fileID: -8679921383154817045, guid: b09b8564272dadf4d82ff7d664fc3e9e, type: 3}
       propertyPath: m_LocalRotation.x
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 52b6af4c3a2692f4cbf24cf05d64f03c, type: 3}
+    - target: {fileID: -8679921383154817045, guid: b09b8564272dadf4d82ff7d664fc3e9e, type: 3}
       propertyPath: m_LocalRotation.y
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 52b6af4c3a2692f4cbf24cf05d64f03c, type: 3}
+    - target: {fileID: -8679921383154817045, guid: b09b8564272dadf4d82ff7d664fc3e9e, type: 3}
       propertyPath: m_LocalRotation.z
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 52b6af4c3a2692f4cbf24cf05d64f03c, type: 3}
+    - target: {fileID: -8679921383154817045, guid: b09b8564272dadf4d82ff7d664fc3e9e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 52b6af4c3a2692f4cbf24cf05d64f03c, type: 3}
+    - target: {fileID: -8679921383154817045, guid: b09b8564272dadf4d82ff7d664fc3e9e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 52b6af4c3a2692f4cbf24cf05d64f03c, type: 3}
+    - target: {fileID: -8679921383154817045, guid: b09b8564272dadf4d82ff7d664fc3e9e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 52b6af4c3a2692f4cbf24cf05d64f03c, type: 3}
+    - target: {fileID: 919132149155446097, guid: b09b8564272dadf4d82ff7d664fc3e9e, type: 3}
       propertyPath: m_Name
-      value: tower-round-bottom-a
+      value: tower-round-build-a
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 52b6af4c3a2692f4cbf24cf05d64f03c, type: 3}
---- !u!4 &4263892388101119279 stripped
+  m_SourcePrefab: {fileID: 100100000, guid: b09b8564272dadf4d82ff7d664fc3e9e, type: 3}
+--- !u!4 &689208833642695288 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 52b6af4c3a2692f4cbf24cf05d64f03c, type: 3}
-  m_PrefabInstance: {fileID: 4370421231258647236}
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b09b8564272dadf4d82ff7d664fc3e9e, type: 3}
+  m_PrefabInstance: {fileID: 1016184817612025235}
   m_PrefabAsset: {fileID: 0}

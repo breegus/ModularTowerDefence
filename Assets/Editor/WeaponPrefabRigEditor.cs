@@ -19,8 +19,8 @@ namespace Editor
             if (rig.pitch && rig.pitch == rig.yaw)
             {
                 EditorGUILayout.HelpBox(
-                    "Pitch and yaw are assigned to the same transform. This is supported, but both axes will rotate the same pivot and can produce less predictable aiming.",
-                    MessageType.Warning);
+                    "Pitch and yaw are assigned to the same transform. This now uses single-pivot combined aiming instead of separate axis.",
+                    MessageType.Info);
             }
 
             DrawDefaultInspector();

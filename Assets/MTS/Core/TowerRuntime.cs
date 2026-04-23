@@ -59,6 +59,9 @@ namespace MTS.Core
             _context.Events.Tick(); // Update ticked modules
         }
 
+        /// <summary>
+        /// Installs and begins using a module
+        /// </summary>
         public void InstallModule(TowerModule newModule)
         {
             if (!newModule) return;
@@ -86,6 +89,9 @@ namespace MTS.Core
             instance.Install(_context);
         }
 
+        /// <summary>
+        /// Removes and stops using a module safely
+        /// </summary>
         public void UninstallModule([CanBeNull] TowerModule oldModule)
         {
             if (!oldModule) return;
@@ -113,6 +119,9 @@ namespace MTS.Core
             Destroy(oldModule);
         }
 
+        /// <summary>
+        /// Swaps the current module for a new one
+        /// </summary>
         public void ReplaceModule(TowerModule oldModule, TowerModule newModule)
             {
                 if (newModule.Type != oldModule.Type)  // Sanity check module types match to prevent errors
@@ -148,10 +157,30 @@ namespace MTS.Core
 
         public void OnDrawGizmos()
         {
+            if (core && core.weaponModule && core.weaponModule.weaponPrefab && !Application.isPlaying)
+            {
+                Gizmos.color = Color.cyan;
+                var weaponPrefab = core.weaponModule.weaponPrefab;
+                var rootMatrix = Matrix4x4.TRS(
+                    transform.TransformPoint(weaponOffset), 
+                    transform.rotation, 
+                    Vector3.one);
+                
+                foreach (var meshFilter in weaponPrefab.GetComponentsInChildren<MeshFilter>())
+                {
+                    if (!meshFilter.sharedMesh) continue;
+                    var localToPrefabRoot =
+                        weaponPrefab.transform.worldToLocalMatrix *
+                        meshFilter.transform.localToWorldMatrix;
+                    
+                    Gizmos.matrix = rootMatrix * localToPrefabRoot;
+                    Gizmos.DrawMesh(meshFilter.sharedMesh);
+                }
+                Gizmos.matrix = Matrix4x4.identity;
+            }
+            
+            
             if (_context == null || !_context.CurrentTarget) return;
-            Gizmos.color = Color.red;
-            Debug.Log(_context.CurrentTarget.transform.position);
-            Gizmos.DrawLine(transform.TransformPoint(weaponOffset), _context.CurrentTarget.transform.position);
 
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(transform.position, _context?.StatManager.Get("Range") ?? 5f);
