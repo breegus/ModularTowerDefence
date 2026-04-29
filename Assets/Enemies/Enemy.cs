@@ -43,7 +43,7 @@ namespace Enemies
             if (healthText)
                 healthText.text = health.ToString(CultureInfo.InvariantCulture);
             Debug.Log($"Ouch! I have {health} health left now.");
-            Debug.Log("Anth stinks ahah 22/02/26");
+            //Debug.Log("Anth stinks ahah 22/02/26");
                                             
             if (health == 0)
             {

@@ -49,7 +49,7 @@ namespace MTS.Core
             InstallModule(core.weaponModule);
 
             if (!core.modifierModules.Any()) return;  // Modifier module(s)
-            Debug.Log($"TowerRuntime: Installing {core.modifierModules.Count()} modifiers: {core.modifierModules}");
+            Debug.Log($"TowerRuntime: Installing {core.modifierModules.Count()} modifiers...");
             
             foreach (var modifier in core.modifierModules)
             {
