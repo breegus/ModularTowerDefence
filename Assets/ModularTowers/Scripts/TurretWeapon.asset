@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ed84c7a36c31684688c4af35791e5cd, type: 3}
   m_Name: TurretWeapon
   m_EditorClassIdentifier: Assembly-CSharp::Towers.Modules.Weapons.ProjectileWeapon
-  fireRate: 0.5
-  damage: 2
   weaponPrefab: {fileID: 5577148390584326913, guid: 442f42b8ce4d8d544891c811bba37751, type: 3}
-  projectilePrefab: {fileID: 919132149155446097, guid: 045e13f8b8cb38248bc9591ea8af6ad4, type: 3}
+  damage: 1
+  fireRate: 0.25
+  projectile: {fileID: 11400000, guid: f38dada1a12d6434490fe2f5da46dbf0, type: 2}

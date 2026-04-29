@@ -34,6 +34,9 @@ namespace MTS.Modules.Weapons
             base.Uninstall(context);
         }
 
+        /// <summary>
+        /// Helper to aim the weapon towards the target and only fire once facing
+        /// </summary>
         private void TryFire()
         {
             if (!Context.CurrentTarget) return;  // No target set
@@ -54,6 +57,9 @@ namespace MTS.Modules.Weapons
             };
         }
 
+        /// <summary>
+        /// Damages the enemy via hitscan and spawns visual projectile (if valid)
+        /// </summary>
         private void Fire(Enemy target)
         {
             var spawnTransform = UseRig && Rig && Rig.projectileOffset ? Rig.projectileOffset : Instance.transform;

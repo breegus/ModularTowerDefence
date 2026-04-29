@@ -17,6 +17,7 @@ namespace MTS.Modules.Core
         protected WeaponModule() : base(ModuleType.Weapon) {  // Call parent constructor (set module type)
         }
 
+        // Find weapon rig and set as active if valid
         protected void FindWeaponRig()
         {
             if (UseRig && Rig != null) return;

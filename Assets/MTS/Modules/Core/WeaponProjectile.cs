@@ -13,6 +13,9 @@ namespace MTS.Modules.Core
 
         public bool IsValid => projectilePrefab;
 
+        /// <summary>
+        /// Spawns a projectile and travels towards the enemy
+        /// </summary>a
         public void Spawn(Transform origin, Enemy target)
         {
             if (!IsValid || !origin || !target) return;
@@ -34,6 +37,9 @@ namespace MTS.Modules.Core
             controller.Initialise(target, speed, lifetime, rotationOffsetEuler);
         }
 
+        /// <summary>
+        /// Helper to get the currently traveling direction
+        /// </summary>
         private Quaternion GetTravelRotation(Vector3 direction, Vector3 up)
         {
             return Quaternion.LookRotation(direction, up) * Quaternion.Euler(rotationOffsetEuler);
@@ -59,6 +65,9 @@ namespace MTS.Modules.Core
             _rotationOffset = rotationOffsetEuler;
         }
 
+        /// <summary>
+        /// Handles the actual movement and targeting of the projectile
+        /// </summary>
         private void Update()
         {
             _lifeRemaining -= Time.deltaTime;

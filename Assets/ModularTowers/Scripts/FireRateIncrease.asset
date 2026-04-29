@@ -9,6 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1397893cb5964607ab1d93972e8b1e9d, type: 3}
-  m_Name: TestStrongestTarget
-  m_EditorClassIdentifier: Assembly-CSharp::Towers.Modules.Targets.StrongestTarget
+  m_Script: {fileID: 11500000, guid: 10e4449ff7f09944ba89c7c04be691af, type: 3}
+  m_Name: FireRateIncrease
+  m_EditorClassIdentifier: Assembly-CSharp::Towers.Modules.Modifiers.FireRateModifier
+  fireRate: 0.5

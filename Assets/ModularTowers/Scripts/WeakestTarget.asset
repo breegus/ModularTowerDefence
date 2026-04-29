@@ -10,5 +10,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c956815e849f21b47a6e26189adc2859, type: 3}
-  m_Name: TestWeakestTarget
+  m_Name: WeakestTarget
   m_EditorClassIdentifier: Assembly-CSharp::Towers.Modules.Targets.WeakestTarget

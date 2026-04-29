@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: CannonWeapon
   m_EditorClassIdentifier: Assembly-CSharp::Towers.Modules.Weapons.ProjectileWeapon
   weaponPrefab: {fileID: 5577148390584326913, guid: 7ec5a2fc96ebff04bac4754b4f67953a, type: 3}
-  damage: 2
-  fireRate: 0.5
+  damage: 5
+  fireRate: 2
   projectile: {fileID: 11400000, guid: 1de94f6718ade6e4cb3e3b67a5d0bcde, type: 2}

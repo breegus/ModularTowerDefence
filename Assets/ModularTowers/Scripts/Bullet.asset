@@ -15,4 +15,4 @@ MonoBehaviour:
   projectilePrefab: {fileID: 5918151457849336907, guid: 21617150131faf64e9b753107190f165, type: 3}
   speed: 20
   lifetime: 3
-  rotationOffsetEuler: {x: 0, y: 0, z: 0}
+  rotationOffsetEuler: {x: 0, y: 270, z: 0}

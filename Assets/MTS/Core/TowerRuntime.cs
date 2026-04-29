@@ -38,6 +38,9 @@ namespace MTS.Core
             Build();
         }
 
+        /// <summary>
+        /// Initialize and install all modules
+        /// </summary>
         private void Build()
         {
             Debug.Log("TowerRuntime: Building Tower Modules...");
@@ -185,11 +188,5 @@ namespace MTS.Core
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(transform.position, _context?.StatManager.Get("Range") ?? 5f);
         }
-
-        /*public void OnDrawGizmosSelected()
-        {
-            Gizmos.color = Color.lightSkyBlue;
-            Gizmos.DrawWireSphere(transform.TransformPoint(weaponOffset), 0.125f);
-        }*/
     }
 }

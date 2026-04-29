@@ -16,7 +16,7 @@ namespace MTS.Modules.Core
         [System.NonSerialized] public bool HasRestPose;
 
         /// <summary>
-        /// Finds the default rotation to take into account when aiming the rig
+        /// Finds the default rotation to take into account when aiming the rig.
         /// </summary>
         public void CaptureRestPose()
         {
