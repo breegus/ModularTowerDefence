@@ -2,7 +2,6 @@ using Enemies;
 using MTS.Data;
 using MTS.Modules.Core;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace MTS.Modules.Weapons
 {
@@ -10,8 +9,8 @@ namespace MTS.Modules.Weapons
     public class ProjectileWeapon : WeaponModule
     {
         public float fireRate = 0.5f;
-        
-        public GameObject projectilePrefab;  // Projectile visual
+
+        public WeaponProjectile projectile;
         
         private float _fireRateTimer;
 
@@ -57,7 +56,12 @@ namespace MTS.Modules.Weapons
 
         private void Fire(Enemy target)
         {
-            Debug.DrawLine(UseRig ? Rig.projectileOffset.position : Instance.transform.position, target.transform.position, Color.yellow, 0.2f, false);
+            var spawnTransform = UseRig && Rig && Rig.projectileOffset ? Rig.projectileOffset : Instance.transform;
+            if (projectile && projectile.IsValid)
+            {
+                projectile.Spawn(spawnTransform, target);
+            }
+
             target.TakeDamage(Context.StatManager.Get("Damage"));
             Context.Events.Hit(target);
         }
